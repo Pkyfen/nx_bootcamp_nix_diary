@@ -6,11 +6,11 @@ createConfigFile() {
 	diary_path=$1
 	editor=$2
 	else
-	diary_path=/diary
+	diary_path=$HOME/diary
 	editor=nano
 	fi
 
-	echo export DIARY_PATH=$HOME$diary_path > $HOME/.diaryrc
+	echo export DIARY_PATH=$diary_path > $HOME/.diaryrc
 	echo export EDITOR=$editor >> $HOME/.diaryrc
 }
 
