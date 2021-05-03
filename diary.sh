@@ -1,8 +1,17 @@
 #!/bin/bash
 
 createConfigFile() {
-	echo export DIARY_PATH=$HOME/diary > $HOME/.diaryrc
-	echo export EDITOR=nano >> $HOME/.diaryrc
+	if [ $# -eq 2 ]
+	then 
+	diary_path=$1
+	editor=$2
+	else
+	diary_path=/diary
+	editor=nano
+	fi
+
+	echo export DIARY_PATH=$HOME$diary_path > $HOME/.diaryrc
+	echo export EDITOR=$editor >> $HOME/.diaryrc
 }
 
 createNote() {
@@ -24,6 +33,14 @@ generateFile() {
 	echo $path/$fileName
 }
 
+setEditor() {
+	`createConfigFile $DIARY_PATH $1`
+}
+
+setPath() {
+	`createConfigFile` $1 $EDITOR
+}
+
 if [ ! -f $HOME/.diaryrc ]
 then
 createConfigFile
@@ -32,4 +49,3 @@ fi
 source $HOME/.diaryrc
 
 createNote
-
