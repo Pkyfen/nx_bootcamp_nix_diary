@@ -14,6 +14,15 @@ createConfigFile() {
 	echo export EDITOR=$editor >> $HOME/.diaryrc
 }
 
+setEditor() {
+        `createConfigFile $DIARY_PATH $1`
+}
+
+setPath() {
+        `createConfigFile` $1 $EDITOR
+}
+
+
 createNote() {
 	$EDITOR `generateFile`
 }
@@ -24,7 +33,7 @@ generateFile() {
 
 	path=$DIARY_PATH/$year/$mounth
 	if [ ! -d $path ]
-	then 
+	then
 		mkdir -p $path
 	fi
 
@@ -33,13 +42,34 @@ generateFile() {
 	echo $path/$fileName
 }
 
-setEditor() {
-	`createConfigFile $DIARY_PATH $1`
+createTemplate() {
+	name=$1
+	path=$DIARY_PATH/templates
+	if [ ! -d $path ]
+	then
+		mkdir -p $path
+	fi
+
+	$EDITOR $path/$name
 }
 
-setPath() {
-	`createConfigFile` $1 $EDITOR
+printTemplates(){
+	ls $DIARY_PATH/templates -1
 }
+
+createNoteFromTemplate() {
+	name=`generateFile`
+	templatePath=$DIARY_PATH/templates/$1
+	if [! -e templatePath ]
+	then
+		echo $templatePath not found
+	else
+		cp $templatePath $name
+		$EDITOR $name
+	fi
+}
+
+
 
 if [ ! -f $HOME/.diaryrc ]
 then
@@ -47,5 +77,3 @@ createConfigFile
 fi
 
 source $HOME/.diaryrc
-
-createNote
