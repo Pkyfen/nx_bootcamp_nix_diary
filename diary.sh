@@ -69,11 +69,10 @@ createNoteFromTemplate() {
 	fi
 }
 
-
-
 if [ ! -f $HOME/.diaryrc ]
 then
 createConfigFile
 fi
 
 source $HOME/.diaryrc
+
