@@ -68,7 +68,7 @@ printNotes() {
 createNoteFromTemplate() {
 	name=`generateFile`
 	templatePath=$DIARY_PATH/templates/$1
-	if [ ! -f templatePath ]
+	if [ ! -e templatePath ]
 	then
 		echo $templatePath not found
 	else
