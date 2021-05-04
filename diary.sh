@@ -112,6 +112,32 @@ deleteNote() {
   fi
 }
 
+restoreNote(){
+  id=$1
+
+  file=`find $DIARY_PATH/basket -name $id*`
+  fileExist=`find $DIARY_PATH/basket -name "$id*" | wc -l`
+
+   if [ $fileExist = 0 ]
+	then
+	   echo "file with id = $id not found"
+	elif [ ! $fileExist = 1 ]
+	then
+	  echo "input more digit in id"
+	else
+	  year=${file: -19: -15}
+    mounth=${file: -14: -12}
+#    echo $file
+    path=$DIARY_PATH/notes/$year/$mounth
+    if [ ! -e $path ]
+    then
+      mkdir $path
+    fi
+    mv $file $path
+  fi
+
+}
+
 if [ ! -f $HOME/.diaryrc ]
 then
 createConfigFile
@@ -126,6 +152,9 @@ then
 elif [[ $# -eq 2 &&  $1 = "note"  && $2 = "-l" ]]
 then
 	printNotes
+elif [[ $# -eq 2 &&  $1 = "restore" ]]
+then
+	restoreNote $2
 elif [[ $# -eq 2 &&  $1 = "open" ]]
 then
 	openNote $2
