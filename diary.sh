@@ -83,3 +83,25 @@ fi
 source $HOME/.diaryrc
 
 
+if [[ $# -eq 1 && $1 = "note" ]]
+then
+	createNote
+elif [[ $# -eq 2 &&  $1 = "open" ]]
+then
+	openNote $2
+elif [[ $# -eq 2 && $1 = "template" && $2 = "-l" ]]
+then
+	printTemplates
+elif [[ $# -eq 2 && $1 = "template" ]]
+then
+	createTemplate $2
+elif [[ $# -eq 3 && $1 = "note" && $2 = "-t" ]]
+then
+	createNoteFromTemplate $3
+elif [[ $# -eq 2 && $1 = "editor" ]]
+then
+	setEditor $2
+elif [[ $# -eq 2 && $1 = "path" ]]
+then
+	setPath $2
+fi
