@@ -21,3 +21,11 @@ $./diary.sh template -l
 list
 todo
 ````
+## Пример конфигурационного файла:
+````shell
+export DIARY_PATH=/home/pkyfen/diary
+export EDITOR=nano
+````
+DIARY_PATH - расположение каталога с дневником
+
+EDITOR - текстовый редактор
