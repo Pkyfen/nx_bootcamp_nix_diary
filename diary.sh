@@ -69,10 +69,17 @@ createNoteFromTemplate() {
 	fi
 }
 
+openNote() {
+	id=$1
+	file=`find $DIARY_PATH -name $id*`
+	$EDITOR $file 
+}
+
 if [ ! -f $HOME/.diaryrc ]
 then
 createConfigFile
 fi
 
 source $HOME/.diaryrc
+
 
