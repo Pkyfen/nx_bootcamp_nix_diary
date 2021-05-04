@@ -127,7 +127,6 @@ restoreNote(){
 	else
 	  year=${file: -19: -15}
     mounth=${file: -14: -12}
-#    echo $file
     path=$DIARY_PATH/notes/$year/$mounth
     if [ ! -e $path ]
     then
@@ -136,6 +135,21 @@ restoreNote(){
     mv $file $path
   fi
 
+}
+
+help() {
+  echo "
+  diary note          create new note
+  diary note -l       show all notes
+  diary template      create new template
+  diary template -l   show all templates
+  diary open [id]     open note by id
+  diary delete [id]   delete note by id
+  diary basket        show all notes in basket
+  diary restore [id]  restore note by id
+
+  diary editor [EDITOR] set default text editor
+  diary path [PATH]     set default path to diary"
 }
 
 if [ ! -f $HOME/.diaryrc ]
@@ -149,6 +163,9 @@ source $HOME/.diaryrc
 if [[ $# -eq 1 && $1 = "note" ]]
 then
 	createNote
+elif [[ $# -eq 1 &&  $1 = "help" ]]
+then
+	help
 elif [[ $# -eq 2 &&  $1 = "note"  && $2 = "-l" ]]
 then
 	printNotes
